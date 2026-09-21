@@ -1,0 +1,14 @@
+
+Built-in Agents and MCP tools:
+    - different agents == different list of MCP tools
+    - list of actions is very limited
+
+Playwright MCP:
+    - standart set of tools
+    - rich(er) tool list
+    - snapshots keep accumulating in the context window
+    - caching mechanisms!
+    - 2025: more tokens used; 2026: now cheaper
+    
+Common Playwright MCP demos:
+    - "open the app {url}, explore the ENTIRE app, produce test cases in plain English"

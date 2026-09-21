@@ -1,0 +1,13 @@
+1./
+Using Playwright MCP, open the browser in headed mode, and write a test script for this test:
+
+1) Select Amazon stock
+2) Enter Market price
+3) Enter 1 share
+4) Click Sell
+5) Verify message "Not enought stock in portfolio." is visible
+
+
+2./
+Open the same URL, focus on the form to buy and sell stocks, identify useful tests related only to input validation.
+Try to be exhaustive. Write the test with steps to a text file in the root of this project. Use MCP tools.

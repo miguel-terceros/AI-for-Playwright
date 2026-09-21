@@ -1,0 +1,193 @@
+Input validation test scenarios for the Buy/Sell form
+========================================================
+
+URL
+---
+http://localhost:3000/index.html
+
+Common setup
+------------
+1. Open the URL in a headed browser.
+2. Clear session storage, or reload the page in a fresh browser context, so the
+   starting form and portfolio state are deterministic.
+3. Click `AMZN: Amazon`.
+4. Read and store the displayed Market price as `marketPrice`.
+5. Use a valid reference price of `marketPrice` for quantity-only tests.
+6. For price tests, use numeric values derived from `marketPrice`; allow for
+   the app's price input and two-decimal value display.
+7. Unless a scenario says otherwise, verify that no validation error is shown
+   before entering data.
+
+Quantity validation: blur
+-------------------------
+For each case below, enter `marketPrice` in Limit Price and the listed value in
+Quantity, then move focus away from Quantity. Verify the expected quantity
+error and that the form remains usable.
+
+1. Empty quantity
+   - Steps: Leave Quantity empty and blur it.
+   - Expected: `Quantity must be a whole number` is shown.
+
+2. Zero quantity
+   - Steps: Enter `0` and blur it.
+   - Expected: The same quantity error is shown.
+
+3. Negative integer quantity
+   - Steps: Enter `-1` and blur it.
+   - Expected: The quantity error is shown.
+
+4. Decimal quantity
+   - Steps: Enter `1.5` and blur it.
+   - Expected: The quantity error is shown.
+
+5. Alphabetic quantity
+   - Steps: Enter `abc` and blur it.
+   - Expected: The quantity error is shown.
+
+6. Alphanumeric quantity
+   - Steps: Enter `1abc` and blur it.
+   - Expected: The quantity error is shown.
+
+7. Whitespace around a number
+   - Steps: Enter ` 1 ` and blur it.
+   - Expected: The quantity error is shown because the value must match the
+     whole input exactly.
+
+8. Plus-prefixed quantity
+   - Steps: Enter `+1` and blur it.
+   - Expected: The quantity error is shown.
+
+9. Leading-zero positive quantity
+   - Steps: Enter `01` and blur it.
+   - Expected: No quantity error is shown because it matches the positive
+     integer rule.
+
+10. Positive integer quantity
+    - Steps: Enter `1`, then repeat with `25`, and blur each value.
+    - Expected: No quantity error is shown.
+
+Quantity validation: Buy and Sell submission
+--------------------------------------------
+For every invalid quantity below, enter a valid in-range Limit Price and click
+Buy. Repeat the same case with a fresh page/form and click Sell. Verify that
+the matching submit-time error is shown, no order is created, and the value
+field stays empty when the quantity is invalid.
+
+1. Empty quantity.
+2. `0`.
+3. `-1`.
+4. `1.5`.
+5. `abc`.
+6. `1abc`.
+7. ` 1 `.
+8. `+1`.
+
+Expected for each Buy and Sell attempt:
+- `Quantity must be a positive whole number` is shown.
+- No portfolio row is added or changed.
+- Cash is unchanged.
+- The action does not proceed to a business-rule result.
+
+Limit Price validation: blur
+----------------------------
+For each case, enter the listed Limit Price, enter valid Quantity `1`, and
+blur Limit Price. Verify the expected price error.
+
+1. Empty price
+   - Expected: `The price is too far away from the current market price`.
+2. Non-numeric price, if accepted by the browser control
+   - Steps: Enter `abc` through keyboard or an equivalent browser input action.
+   - Expected: The same price error.
+3. Negative price
+   - Steps: Enter `-1`.
+   - Expected: The same price error.
+4. Zero price
+   - Steps: Enter `0`.
+   - Expected: The same price error.
+5. Below lower boundary
+   - Steps: Enter a value below `marketPrice * 0.90`.
+   - Expected: The same price error.
+6. Exact lower boundary
+   - Steps: Enter `marketPrice * 0.90`.
+   - Expected: No price error.
+7. In-range price
+   - Steps: Enter `marketPrice`.
+   - Expected: No price error.
+8. Exact upper boundary
+   - Steps: Enter `marketPrice * 1.10`.
+   - Expected: No price error.
+9. Above upper boundary
+   - Steps: Enter a value above `marketPrice * 1.10`.
+   - Expected: The same price error.
+
+Limit Price validation: Buy and Sell submission
+-----------------------------------------------
+For each invalid price below, enter valid Quantity `1`, click Buy, and repeat
+with a fresh page/form using Sell. Verify the price error, no portfolio or cash
+change, and no action-level business error.
+
+1. Empty price.
+2. Negative price.
+3. Zero price.
+4. A value below `marketPrice * 0.90`.
+5. A value above `marketPrice * 1.10`.
+6. A non-numeric value if the browser permits it to reach the control.
+
+Expected valid boundary submissions:
+- Price exactly 90% of market price with Quantity `1` passes input validation.
+- Price exactly 110% of market price with Quantity `1` passes input validation.
+- A price just below 90% and just above 110% fails input validation.
+
+Cross-field and dynamic value validation
+----------------------------------------
+1. Enter valid price and invalid quantity.
+   - Expected: Value is empty; quantity error is shown.
+2. Enter invalid price and valid quantity.
+   - Expected: Value is empty; price error is shown after blur or submit.
+3. Leave both fields empty.
+   - Expected: Value is empty; submit shows both quantity and price errors.
+4. Enter valid price and valid quantity `2`.
+   - Expected: Value becomes `(price * 2).toFixed(2)`.
+5. Change a valid quantity to an invalid value.
+   - Expected: Value is cleared immediately and the quantity error appears on
+     blur or submit.
+6. Change a valid price to an invalid value.
+   - Expected: Value is cleared immediately and the price error appears on
+     blur or submit.
+7. Correct an invalid quantity to `1`.
+   - Expected: The value recalculates and the quantity error clears on blur.
+8. Correct an invalid price to an in-range value.
+   - Expected: The value recalculates and the price error clears on blur.
+
+Form reset and error lifecycle
+------------------------------
+1. Select Amazon, enter invalid price and quantity, and trigger both errors.
+2. Click another stock, such as `MSFT: Microsoft`.
+3. Expected: Limit Price, Quantity, and Value are cleared; all validation
+   messages are cleared; the new stock's market price is displayed.
+4. Trigger a quantity error, correct Quantity, and blur it.
+   - Expected: The quantity error is removed.
+5. Trigger a price error, correct Limit Price, and blur it.
+   - Expected: The price error is removed.
+6. Trigger both field errors, then click Buy or Sell after correcting only one
+   field.
+   - Expected: The remaining invalid field still shows its submit-time error;
+     validation does not allow the action to proceed.
+7. Trigger an error, then select a different stock.
+   - Expected: The previous error does not remain on the new stock form.
+
+Control and accessibility checks
+---------------------------------
+1. Verify Limit Price is a number input and Quantity is a text input.
+2. Verify Value is read-only and cannot be edited by normal keyboard input.
+3. Verify both Buy and Sell remain available when field validation fails.
+4. Verify validation messages are rendered in the corresponding price,
+   quantity, and action error regions rather than replacing unrelated content.
+5. Verify selecting a stock opens the form and displays a non-empty market
+   price before any validation test begins.
+
+Scope exclusions
+----------------
+Do not include insufficient-cash, insufficient-portfolio, average-price,
+portfolio-balance, or cash-balance scenarios here. Those are order and business
+rule tests, not input validation tests.
