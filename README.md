@@ -6,8 +6,6 @@ This course will teach you:
 3. Create and use specialized Markdown agents
 4. How to install and use Playwright CLI
 
-> [!IMPORTANT]
-> This is a "starter" repo, containing only the minimal setup to enable learners to code along with the video course.
->
 
-You can find all my courses at: https://www.pluralsight.com/authors/andrejs-doronins
+## Playwright-MCP reporsitory
+https://github.com/microsoft/playwright-mcp

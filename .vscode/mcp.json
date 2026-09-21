@@ -1,0 +1,20 @@
+{
+	"servers": {
+		"playwright": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				// before v 1.62:
+				// Playwright MCP + CLI were separate packages
+				"@playwright/mcp@latest"	// pulls MCP on first invocation (npx/)
+
+				// since v 1.62:
+				// Playwright MCP + CLI are included in core!
+				// npx playwright --help
+					// npx playwright mcp
+					// npx playwright cli
+			]
+		}
+	},
+	"inputs": []
+}
