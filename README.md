@@ -9,3 +9,6 @@ This course will teach you:
 
 ## Playwright-MCP reporsitory
 https://github.com/microsoft/playwright-mcp
+
+## Practical Testing Docs
+https://practical-testing.gitbook.io/ 

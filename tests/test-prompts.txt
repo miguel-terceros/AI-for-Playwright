@@ -11,3 +11,26 @@ Using Playwright MCP, open the browser in headed mode, and write a test script f
 2./
 Open the same URL, focus on the form to buy and sell stocks, identify useful tests related only to input validation.
 Try to be exhaustive. Write the test with steps to a text file in the root of this project. Use MCP tools.
+
+
+3./ 
+- Select planner agent before running the command
+go to http://localhost:3000/index.html, explore through the browser ONLY, create test scenarios. Do NOT look into source code.
+
+
+4./
+- Select generator agent before running the command
+generate the first 2 tests from the trade-app-test-plan.md file
+
+
+5./ 
+- Select generator agent before running the command
+generate test scripts for 3.1 and 3.2 scenarios
+
+
+6./
+- Select "Black Box Test Designer" agent before running the command
+go to http://localhost:3000/index.html, explore through the browser ONLY, create test scenarios. Do NOT look into source code.
+
+
+*Compare the two test plans created by two different agents. Evaluate which one is more comprehensive and explain why. Write a brief summary into a separate file.*

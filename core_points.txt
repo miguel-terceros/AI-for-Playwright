@@ -12,3 +12,33 @@ Playwright MCP:
     
 Common Playwright MCP demos:
     - "open the app {url}, explore the ENTIRE app, produce test cases in plain English"
+
+Playwright Agents:
+    - Planner: explore app, produce a test suite (file)
+    - Generator: take the test suite, convert to scripts
+    - Healer: fix failing test scripts
+
+    - Takeaways:
+        - default planner agent produces superficial work - yes
+        - use my prompt? - no!
+        - planner agent == starter template (at best)
+            - improve it 
+            - add domain-specific context
+
+    - Healer agent:
+        - generic agent usually does the job well too
+
+        - risks!
+            - treat the symptom vs. root cause
+            - fixing a locator is OK
+            - adding waits
+            - (wrong) purpose - "make the test pass" (vs. verify correct functionality)
+
+        - alternative flows:
+            - create and use a Requirements Analyst agent
+            - use agents to produce questions
+            - explore and create test yourself, ask 'planner' to find gaps in YOUR work
+
+        - AI cannot be held responsible
+
+
