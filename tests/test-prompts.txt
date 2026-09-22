@@ -34,3 +34,26 @@ go to http://localhost:3000/index.html, explore through the browser ONLY, create
 
 
 *Compare the two test plans created by two different agents. Evaluate which one is more comprehensive and explain why. Write a brief summary into a separate file.*
+
+
+7./ CLI claude
+Since playwright v1.62, MCP and CLI are part of the core. Can you use “npx playwright cli” to open the browser at ‘https://localhost:3000/index.html' (server already running) and print here the list of stocks in the table on the left side of the screen? Don’t try to install Playwright CLI as a separate package.
+
+
+8./ CLAUDE MCP
+Without looking into source code, and using playwright MCP only, write a test script for this scenario:
+1) go to http://localhost:3000/index.html
+2) buy 1 stock of each at current market price
+3) verify the remaining cash balance is correct on the same page
+4) verify the cash balance is the same on the analytics page
+5) verify the message on diversirication is correct - that portfolio is well diversified
+
+
+9./ CLAUDE CLI
+Without looking into source code, and using POM pattern under tests/pages/, and using "npx playwright cli" (not playwright-cli, not Playwright MCP), write a test script for this scenario:
+1) go to http://localhost:3000/index.html
+2) buy 1 stock of each at current market price
+3) verify the remaining cash balance is correct on the same page
+4) verify the cash balance is the same on the analytics page
+5) verify the message on diversirication is correct - that portfolio is well diversified
+

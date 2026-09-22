@@ -17,7 +17,7 @@ export class TradePage {
         await this.page
             .getByTestId('stock-list')
             .getByRole('listitem')
-            .filter({ hasText: ticker })
+            .filter({ hasText: new RegExp(`^${ticker}:`) })
             .click();
     }
 
