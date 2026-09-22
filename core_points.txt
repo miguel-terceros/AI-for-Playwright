@@ -25,20 +25,70 @@ Playwright Agents:
             - improve it 
             - add domain-specific context
 
-    - Healer agent:
-        - generic agent usually does the job well too
+- Healer agent:
+    - generic agent usually does the job well too
 
-        - risks!
-            - treat the symptom vs. root cause
-            - fixing a locator is OK
-            - adding waits
-            - (wrong) purpose - "make the test pass" (vs. verify correct functionality)
+    - risks!
+        - treat the symptom vs. root cause
+        - fixing a locator is OK
+        - adding waits
+        - (wrong) purpose - "make the test pass" (vs. verify correct functionality)
 
-        - alternative flows:
-            - create and use a Requirements Analyst agent
-            - use agents to produce questions
-            - explore and create test yourself, ask 'planner' to find gaps in YOUR work
+    - alternative flows:
+        - create and use a Requirements Analyst agent
+        - use agents to produce questions
+        - explore and create test yourself, ask 'planner' to find gaps in YOUR work
 
-        - AI cannot be held responsible
+    - AI cannot be held responsible
+
+MCP vs. CLI 
+    - MCP: snapshot saved to disk AND injected into context window
+    - CLI: snapshot saved to disk, MAY be read by agent
+
+    - MCP == entire snapshot all the time
+    - CLI == part of snapshot SOMETIMES
+
+MCP vs CLI experiment:
+    - same agent
+    - same model
+    - same thinking effort
+    - same code base
+    - same Takeaways
+
+    - short vs. long-running tasks
 
 
+AI WORKFLOW SETUP CHEATSHEET
+============================
+
+>> Global instructions file ( claude.md / copilot-instructions.md )
+    - ONLY references (gateway), no or very little actual content
+        - testing[references/test-techniques.md](references/techniques.md)
+        - code-rules[...](...)
+        - test-automation[...](...)
+        
+    - agent loads what's needed)
+
+
+>> claude
+    - no markdown agents needed
+
+
+>> Copilot + VS code
+    - agents = native concept
+        - Requirements Analyst
+        - Black-Box tester
+        - SDET
+            - MCP tools used
+            - MCP vs CLI (e.g. Playwright)
+            - NOT all skills - just folder links
+
+
+>> Other AI uses:
+    - test data generation
+    - coverage gap analysis
+    - new repo exploration
+    - auto-create skills/instructions
+    - etc.
+
+    
